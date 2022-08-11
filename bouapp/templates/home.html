@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home page
+{% endblock title %}
+{% block content %}
+<div class="title p-5">
+    <h2 class="text-center P-5">WELCOME TO USER DASHBOARD</h2>
+    <hr size="5px">
+</div>
+<div class="row text-center">
+<!-- Card to display data -->
+  <div class="col-lg-4">
+    <a href="{% url 'view_person'%}" style="text-decoration: none;">
+      <div class="card p-5" style="background-color: brown;">
+        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <div class="card-body text-white">
+          <h4 class="card-title">count: {{person_count}}</h4>
+          <h4 class="card-text">Registered Persons</h4>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-lg-4">
+    <a href="{% url 'view_items'%}" style="text-decoration: none;">
+      <div class="card p-5" style="background-color: orange;">
+        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <div class="card-body text-white">
+          <h4 class="card-title">count: {{items_count}}</h4>
+          <h4 class="card-text">Registered Items</h4>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-lg-4">
+    <a href="{% url 'view_badge'%}" style="text-decoration: none;">
+      <div class="card p-5" style="background-color: black;">
+        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <div class="card-body text-white">
+          <h4 class="card-title">count: {{badge_count}}</h4>
+          <h4 class="card-text">Registered Badges</h4>
+        </div>
+      </div>
+    </a>
+  </div>
+    
+</div>
+<!-- Displaying on graphs -->
+<div class="row p-3">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-6">
+    <div class="chart-title text-center">
+      <h5>Persons, Items and Badges Graph</h5>
+    </div>
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['persons','items','badges'],
+            datasets: [{
+                label: 'data available',
+                data: [{{person_count}},{{items_count}},{{badge_count}},],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(34, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    </script>
+  </div>
+</div>
+
+    
+
+    
+{% endblock content %}
